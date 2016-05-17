@@ -1,0 +1,49 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>cn.tinycourse</groupId>
+    <artifactId>tinycourse-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>cn.tinycourse</groupId>
+  <artifactId>tinycourse-manager</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  
+  <!-- 运行整个项目时需要从这个聚合工程启动 -->
+  
+  <!-- 依赖管理 -->
+  <dependencies>
+	<dependency>
+		<!-- 依赖于tinycourse-common -->
+		<groupId>cn.tinycourse</groupId>
+  		<artifactId>tinycourse-common</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+	</dependency>	  
+  </dependencies>
+  <modules>
+  	<module>tinycourse-manager-pojo</module>
+  	<module>tinycourse-manager-mapper</module>
+  	<module>tinycourse-manager-service</module>
+  	<module>tinycourse-manager-web</module>
+  </modules>
+  
+  <!-- 配置Tomcat的maven插件 -->
+  <build>
+  	<!-- 插件列表 -->
+  	<plugins>
+  		<plugin>
+  			<!-- 父工程中已经配置了插件版本在这里无需再次配置<version> -->
+  			<groupId>org.apache.tomcat.maven</groupId>
+			<artifactId>tomcat7-maven-plugin</artifactId>
+			<!-- 配置Tomcat的一些属性 -->
+			<configuration>
+				<!-- Tomcat端口 -->
+				<port>8080</port>
+				<!-- 工程的根目录 -->
+				<path>/</path>
+			</configuration>
+  		</plugin>
+  	</plugins>
+  </build>
+</project>

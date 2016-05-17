@@ -1,0 +1,4 @@
+cn\tinycourse\service\impl\PictureServiceImpl.class
+cn\tinycourse\user\service\impl\UserServiceImpl.class
+cn\tinycourse\service\PictureService.class
+cn\tinycourse\user\service\UserService.class

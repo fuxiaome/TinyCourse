@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tinycourse.mapper.FollowMapper" >
+  <resultMap id="BaseResultMap" type="cn.tinycourse.pojo.Follow" >
+    <id column="fol_id" property="folId" jdbcType="INTEGER" />
+    <result column="fol_user" property="folUser" jdbcType="INTEGER" />
+    <result column="fol_usered" property="folUsered" jdbcType="INTEGER" />
+    <result column="fol_date" property="folDate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fol_id, fol_user, fol_usered, fol_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.tinycourse.pojo.FollowExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from follow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from follow
+    where fol_id = #{folId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from follow
+    where fol_id = #{folId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.tinycourse.pojo.FollowExample" >
+    delete from follow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.tinycourse.pojo.Follow" >
+    insert into follow (fol_id, fol_user, fol_usered, 
+      fol_date)
+    values (#{folId,jdbcType=INTEGER}, #{folUser,jdbcType=INTEGER}, #{folUsered,jdbcType=INTEGER}, 
+      #{folDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.tinycourse.pojo.Follow" >
+    insert into follow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="folId != null" >
+        fol_id,
+      </if>
+      <if test="folUser != null" >
+        fol_user,
+      </if>
+      <if test="folUsered != null" >
+        fol_usered,
+      </if>
+      <if test="folDate != null" >
+        fol_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="folId != null" >
+        #{folId,jdbcType=INTEGER},
+      </if>
+      <if test="folUser != null" >
+        #{folUser,jdbcType=INTEGER},
+      </if>
+      <if test="folUsered != null" >
+        #{folUsered,jdbcType=INTEGER},
+      </if>
+      <if test="folDate != null" >
+        #{folDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.tinycourse.pojo.FollowExample" resultType="java.lang.Integer" >
+    select count(*) from follow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update follow
+    <set >
+      <if test="record.folId != null" >
+        fol_id = #{record.folId,jdbcType=INTEGER},
+      </if>
+      <if test="record.folUser != null" >
+        fol_user = #{record.folUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.folUsered != null" >
+        fol_usered = #{record.folUsered,jdbcType=INTEGER},
+      </if>
+      <if test="record.folDate != null" >
+        fol_date = #{record.folDate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update follow
+    set fol_id = #{record.folId,jdbcType=INTEGER},
+      fol_user = #{record.folUser,jdbcType=INTEGER},
+      fol_usered = #{record.folUsered,jdbcType=INTEGER},
+      fol_date = #{record.folDate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.tinycourse.pojo.Follow" >
+    update follow
+    <set >
+      <if test="folUser != null" >
+        fol_user = #{folUser,jdbcType=INTEGER},
+      </if>
+      <if test="folUsered != null" >
+        fol_usered = #{folUsered,jdbcType=INTEGER},
+      </if>
+      <if test="folDate != null" >
+        fol_date = #{folDate,jdbcType=DATE},
+      </if>
+    </set>
+    where fol_id = #{folId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.tinycourse.pojo.Follow" >
+    update follow
+    set fol_user = #{folUser,jdbcType=INTEGER},
+      fol_usered = #{folUsered,jdbcType=INTEGER},
+      fol_date = #{folDate,jdbcType=DATE}
+    where fol_id = #{folId,jdbcType=INTEGER}
+  </update>
+</mapper>
